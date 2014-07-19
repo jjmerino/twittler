@@ -22,14 +22,16 @@
               limit = streams.home.length;
           }
           if($el==undefined){
-              $el = $('<div></div>');
+              $el = $('<div class="feed"></div>');
           }
           var index = streams.home.length - 1;
 
           while(index >= 0 && index>=streams.home.length-limit){
               var tweet = streams.home[index];
-              var $tweet = $('<div></div>');
-              $tweet.text('@' + tweet.user + ': ' + tweet.message + ' //'+tweet.created_at+'');
+              var $tweet = $('<div class="tweet"></div>');
+              $tweet.append('<span class="user">@'+tweet.user+':</span>');
+              $tweet.append(' <span class="message">'+tweet.message+'</span>');
+              $tweet.append(' <span class="timestamp">#'+tweet.created_at+'</span>');
               $tweet.appendTo($el);
               index -= 1;
           }
@@ -38,12 +40,14 @@
 
       $(document).ready(function(){
         var $body = $('body');
+        var $feed = $('<div class="feed"></div>');
         $body.html('');
-        renderTweets($body,10);
+        renderTweets($feed,10);
         onTweetAdded(function(){
-            $body.html('');
-            renderTweets($body,10);
-        })
+            $feed.html('');
+            renderTweets($feed,10);
+        });
+        $body.append($feed);
       });
 
     </script>
