@@ -17,6 +17,9 @@
     border: solid 1px #cfcfcf;
     border-radius:4px;
 }
+.feed h3 {
+    margin:5px;
+}
 .tweet{
     position:relative;
     background-color: #fafafa;

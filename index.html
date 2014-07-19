@@ -8,6 +8,8 @@
   <body>
     <script>
 
+      var showingTweets = streams.home;
+      var showBackButton = false;
       // add a callback to addTweet
       var onTweetAdded = function(callback){
           var original = addTweet;
@@ -16,7 +18,18 @@
               callback();
           };
       };
+      var goToTweets = function(name){
+          if(name=="home"){
+            showingTweets = streams.home;
+          }else{
+              if(streams.users[name]!=undefined){
+                  showingTweets = streams.users[name];
 
+              }else{
+                  showingTweets = streams.home;
+              }
+          }
+      };
       // renders tweets into an element
       var renderTweets= function($el,limit,tweets){
           if(limit==undefined){
@@ -30,7 +43,11 @@
           while(index >= 0 && index>=tweets.length-limit){
               var tweet = tweets[index];
               var $tweet = $('<div class="tweet"></div>');
-              $tweet.append('<span class="user">@'+tweet.user+':</span>');
+              var $user = $('<span class="user">@'+tweet.user+':</span>');
+              $user.click(function(){
+
+              });
+              $tweet.append($user);
               $tweet.append(' <span class="message">'+tweet.message+'</span>');
               $tweet.append(' <span class="timestamp">#'+tweet.created_at+'</span>');
               $tweet.appendTo($el);
@@ -38,20 +55,25 @@
           }
           return $el;
       };
+      var renderApp = function(){
+          var $body = $('body');
+          $body.html('');
+          var $feed = $('<div class="feed"></div>');
+          var $title = $('<div class="header"><h1>Welcome to Twittler</h1></div>');
+          var $subtitle = $('<div class="feed"><h3>Seeing Tweets for Home</h2></div>');
 
+
+          renderTweets($feed,10,showingTweets);
+          onTweetAdded(function(){
+              $feed.html('');
+              renderTweets($feed,10,showingTweets);
+          });
+          $body.append($title);
+          $body.append($subtitle);
+          $body.append($feed);
+      };
       $(document).ready(function(){
-        var $body = $('body');
-        var $feed = $('<div class="feed"></div>');
-        var $title = $('<div class="header"><h1>Welcome to Twittler</h1></div>');
-        var tweets = streams.home;
-        $body.html('');
-        renderTweets($feed,10,tweets);
-        onTweetAdded(function(){
-            $feed.html('');
-            renderTweets($feed,10,tweets);
-        });
-        $body.append($title);
-        $body.append($feed);
+          renderApp();
       });
 
     </script>
