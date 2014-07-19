@@ -1,0 +1,33 @@
+.feed {
+    padding:10px;
+    margin-left:auto;
+    margin-right:auto;
+    width:500px;
+    background-color: #ffffff;
+    border: solid 1px #cfcfcf;
+    border-radius:4px;
+}
+
+.tweet{
+    position:relative;
+    background-color: #fafafa;
+    padding:5px;
+    border-radius:4px;
+    margin-bottom:4px;
+}
+
+.tweet>.user{
+    font-weight: bold;
+    display:inline-block;
+}
+.tweet>.message{
+    display:block;
+    margin-left:10px;
+}
+.tweet>.timestamp{
+    display:block;
+    position:absolute;
+    top:0;
+    right:0;
+    color:gray;
+}
