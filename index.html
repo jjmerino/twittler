@@ -17,12 +17,16 @@
       };
 
       // renders tweets into an element
-      var renderTweets= function($el){
+      var renderTweets= function($el,limit){
+          if(limit==undefined){
+              limit = streams.home.length;
+          }
           if($el==undefined){
               $el = $('<div></div>');
           }
           var index = streams.home.length - 1;
-          while(index >= 0){
+
+          while(index >= 0 && index>=streams.home.length-limit){
               var tweet = streams.home[index];
               var $tweet = $('<div></div>');
               $tweet.text('@' + tweet.user + ': ' + tweet.message);
@@ -35,10 +39,10 @@
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-        renderTweets($body);
+        renderTweets($body,10);
         onTweetAdded(function(){
             $body.html('');
-            renderTweets($body);
+            renderTweets($body,10);
         })
       });
 
