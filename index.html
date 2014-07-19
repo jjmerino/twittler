@@ -18,17 +18,17 @@
       };
 
       // renders tweets into an element
-      var renderTweets= function($el,limit){
+      var renderTweets= function($el,limit,tweets){
           if(limit==undefined){
-              limit = streams.home.length;
+              limit = tweets.length;
           }
           if($el==undefined){
               $el = $('<div class="feed"></div>');
           }
-          var index = streams.home.length - 1;
+          var index = tweets.length - 1;
 
-          while(index >= 0 && index>=streams.home.length-limit){
-              var tweet = streams.home[index];
+          while(index >= 0 && index>=tweets.length-limit){
+              var tweet = tweets[index];
               var $tweet = $('<div class="tweet"></div>');
               $tweet.append('<span class="user">@'+tweet.user+':</span>');
               $tweet.append(' <span class="message">'+tweet.message+'</span>');
@@ -42,12 +42,13 @@
       $(document).ready(function(){
         var $body = $('body');
         var $feed = $('<div class="feed"></div>');
-        var $title = $('<div class="header"><h1>Welcome to Twittler</h1></div>')
+        var $title = $('<div class="header"><h1>Welcome to Twittler</h1></div>');
+        var tweets = streams.home;
         $body.html('');
-        renderTweets($feed,10);
+        renderTweets($feed,10,tweets);
         onTweetAdded(function(){
             $feed.html('');
-            renderTweets($feed,10);
+            renderTweets($feed,10,tweets);
         });
         $body.append($title);
         $body.append($feed);
