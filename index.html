@@ -7,19 +7,39 @@
   <body>
     <script>
 
+      // add a callback to addTweet
+      var onTweetAdded = function(callback){
+          var original = addTweet;
+          addTweet = function(){
+              original.apply(this,arguments);
+              callback();
+          };
+      };
+
+      // renders tweets into an element
+      var renderTweets= function($el){
+          if($el==undefined){
+              $el = $('<div></div>');
+          }
+          var index = streams.home.length - 1;
+          while(index >= 0){
+              var tweet = streams.home[index];
+              var $tweet = $('<div></div>');
+              $tweet.text('@' + tweet.user + ': ' + tweet.message);
+              $tweet.appendTo($el);
+              index -= 1;
+          }
+          return $el;
+      };
+
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
-
+        renderTweets($body);
+        onTweetAdded(function(){
+            $body.html('');
+            renderTweets($body);
+        })
       });
 
     </script>
