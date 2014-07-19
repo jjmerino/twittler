@@ -42,12 +42,14 @@
       $(document).ready(function(){
         var $body = $('body');
         var $feed = $('<div class="feed"></div>');
+        var $title = $('<div class="header"><h1>Welcome to Twittler</h1></div>')
         $body.html('');
         renderTweets($feed,10);
         onTweetAdded(function(){
             $feed.html('');
             renderTweets($feed,10);
         });
+        $body.append($title);
         $body.append($feed);
       });
 

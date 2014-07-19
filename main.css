@@ -1,3 +1,13 @@
+.header {
+    margin-bottom:30px;
+    background-color: #ffffff;
+    border-bottom-style: dashed;
+}
+.header > h1 {
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+}
 .feed {
     padding:10px;
     margin-left:auto;
@@ -7,7 +17,6 @@
     border: solid 1px #cfcfcf;
     border-radius:4px;
 }
-
 .tweet{
     position:relative;
     background-color: #fafafa;
