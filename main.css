@@ -19,6 +19,7 @@
 }
 .feed h3 {
     margin:5px;
+    width:auto;
 }
 .tweet{
     position:relative;
@@ -30,6 +31,7 @@
 
 .tweet>.user{
     font-weight: bold;
+    cursor: pointer;
     display:inline-block;
 }
 .tweet>.message{
@@ -42,4 +44,18 @@
     top:0;
     right:0;
     color:gray;
+}
+
+.button {
+    padding:5px;
+    cursor:pointer;
+    display:inline;
+    text-align:center;
+    width:80px;
+    color: #414141;
+
+    font-weight: bold;
+    border-radius: 5px;
+    border: solid 1px green;
+
 }

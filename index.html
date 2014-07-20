@@ -10,6 +10,8 @@
 
       var showingTweets = streams.home;
       var showBackButton = false;
+      var subtitle = "Home";
+
       // add a callback to addTweet
       var onTweetAdded = function(callback){
           var original = addTweet;
@@ -22,12 +24,15 @@
           showBackButton = false;
           if(name=="home"){
             showingTweets = streams.home;
+            subtitle = "Home";
           }else{
               if(streams.users[name]!=undefined){
                   showingTweets = streams.users[name];
+                  subtitle = "Seeing tweets for "+name;
                   showBackButton = true;
               }else{
                   showingTweets = streams.home;
+                  subtitle = "Home";
               }
           }
           renderApp();
@@ -65,8 +70,15 @@
           $body.html('');
           var $feed = $('<div class="feed"></div>');
           var $title = $('<div class="header"><h1>Welcome to Twittler</h1></div>');
-          var $subtitle = $('<div class="feed"><h3>Seeing Tweets for Home</h2></div>');
+          var $subtitle = $('<div class="feed"><h3>'+subtitle+'</h3></div>');
 
+          if(showBackButton){
+              var $button = $('<div class="button">Back</div>');
+              $subtitle.append($button);
+
+              registerClick($subtitle,'home');
+
+          }
 
           renderTweets($feed,10,showingTweets);
           onTweetAdded(function(){
