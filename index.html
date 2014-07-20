@@ -19,17 +19,24 @@
           };
       };
       var goToTweets = function(name){
+          showBackButton = false;
           if(name=="home"){
             showingTweets = streams.home;
           }else{
               if(streams.users[name]!=undefined){
                   showingTweets = streams.users[name];
-
+                  showBackButton = true;
               }else{
                   showingTweets = streams.home;
               }
           }
+          renderApp();
       };
+      var registerClick = function($el,username){
+          $el.click(function(){
+             goToTweets(username);
+          });
+      }
       // renders tweets into an element
       var renderTweets= function($el,limit,tweets){
           if(limit==undefined){
@@ -44,9 +51,7 @@
               var tweet = tweets[index];
               var $tweet = $('<div class="tweet"></div>');
               var $user = $('<span class="user">@'+tweet.user+':</span>');
-              $user.click(function(){
-
-              });
+              registerClick($user,tweet.user);
               $tweet.append($user);
               $tweet.append(' <span class="message">'+tweet.message+'</span>');
               $tweet.append(' <span class="timestamp">#'+tweet.created_at+'</span>');
