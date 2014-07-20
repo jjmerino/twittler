@@ -16,10 +16,13 @@
     background-color: #ffffff;
     border: solid 1px #cfcfcf;
     border-radius:4px;
+    max-height:480px;
+    overflow-y: scroll;
 }
 .feed h3 {
     margin:5px;
     width:auto;
+    display:inline-block;
 }
 .tweet{
     position:relative;

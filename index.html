@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="jquery.js"></script>
+    <script src="moment.min.js"></script>
     <script src="data_generator.js"></script>
     <link href="main.css" rel="stylesheet">
   </head>
@@ -43,7 +44,7 @@
           });
       }
       // renders tweets into an element
-      var renderTweets= function($el,limit,tweets){
+      var renderTweets= function($el,tweets,limit){
           if(limit==undefined){
               limit = tweets.length;
           }
@@ -55,11 +56,12 @@
           while(index >= 0 && index>=tweets.length-limit){
               var tweet = tweets[index];
               var $tweet = $('<div class="tweet"></div>');
-              var $user = $('<span class="user">@'+tweet.user+':</span>');
+              var $user = $('<span class="user">'+tweet.user+':</span>');
               registerClick($user,tweet.user);
               $tweet.append($user);
               $tweet.append(' <span class="message">'+tweet.message+'</span>');
-              $tweet.append(' <span class="timestamp">#'+tweet.created_at+'</span>');
+              var timeago = moment(tweet.created_at).fromNow();
+              $tweet.append(' <span class="timestamp">'+timeago+'</span>');
               $tweet.appendTo($el);
               index -= 1;
           }
@@ -74,16 +76,16 @@
 
           if(showBackButton){
               var $button = $('<div class="button">Back</div>');
-              $subtitle.append($button);
+              $subtitle.prepend($button);
 
-              registerClick($subtitle,'home');
+              registerClick($button,'home');
 
           }
 
-          renderTweets($feed,10,showingTweets);
+          renderTweets($feed,showingTweets);
           onTweetAdded(function(){
               $feed.html('');
-              renderTweets($feed,10,showingTweets);
+              renderTweets($feed,showingTweets);
           });
           $body.append($title);
           $body.append($subtitle);
